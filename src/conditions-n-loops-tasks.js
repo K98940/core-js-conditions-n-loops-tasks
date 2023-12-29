@@ -379,8 +379,21 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const m = matrix;
+  const tmp = [];
+  const len = m.length;
+  for (let i = 0; i < len; i += 1) {
+    tmp[i] = [...m[i]];
+  }
+
+  for (let i = 0; i < len; i += 1) {
+    for (let k = 0; k < len; k += 1) {
+      m[k][len - i - 1] = tmp[i][k];
+    }
+  }
+
+  return m;
 }
 
 /**
@@ -397,8 +410,21 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const a = arr;
+  for (let i = 0; i < a.length; i += 1) {
+    let sorted = false;
+    for (let k = 0; k < a.length - i; k += 1) {
+      if (a[k] > a[k + 1]) {
+        [a[k], a[k + 1]] = [a[k + 1], a[k]];
+        sorted = true;
+      }
+    }
+    if (!sorted) {
+      break;
+    }
+  }
+  return a;
 }
 
 /**
@@ -418,8 +444,19 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let s = str;
+
+  for (let iteration = 0; iteration < iterations; iteration += 1) {
+    let a = '';
+    const b = s.replace(/(.)(.)?/g, (_, c1, c2) => {
+      a += c1;
+      const x = c2 || '';
+      return x;
+    });
+    s = a + b;
+  }
+  return s;
 }
 
 /**
@@ -439,8 +476,65 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const getDigits = (num) => {
+    let n = num;
+    const result = [];
+    while (n >= 1) {
+      n /= 10;
+      const x = n % 1;
+      const y = Math.round(x * 10);
+      n = Math.trunc(n);
+      result.push(y);
+    }
+    return result.reverse();
+  };
+  const getMagicIndex = (digits) => {
+    for (let i = digits.length - 1; i > 0; i -= 1) {
+      if (digits[i] > digits[i - 1]) return i - 1;
+    }
+    return -1;
+  };
+  const getSwapIndex = (digits, idx) => {
+    let index = idx + 1;
+    let least = digits[index];
+    for (let i = idx + 1; i < digits.length; i += 1) {
+      if (digits[i] > digits[idx]) {
+        if (digits[i] < least) {
+          least = digits[i];
+          index = i;
+        }
+      }
+    }
+    return index;
+  };
+  const sortTail = (digits, idx) => {
+    const arr = digits;
+    for (let i = idx + 1; i < arr.length; i += 1) {
+      for (let k = idx + 1; k < arr.length; k += 1) {
+        if (arr[k] > arr[k + 1]) [arr[k], arr[k + 1]] = [arr[k + 1], arr[k]];
+      }
+    }
+  };
+  const arrToNumber = (digits) => {
+    const result = digits.reduce((num, d, i) => {
+      if (i === 0) return d;
+      return num * 10 + d;
+    });
+    return result;
+  };
+
+  const digits = getDigits(number);
+  const magicIndex = getMagicIndex(digits);
+  const swapIndex = getSwapIndex(digits, magicIndex);
+  [digits[magicIndex], digits[swapIndex]] = [
+    digits[swapIndex],
+    digits[magicIndex],
+  ];
+  sortTail(digits, magicIndex);
+  const resultNumber = arrToNumber(digits);
+
+  return resultNumber;
 }
 
 module.exports = {

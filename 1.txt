@@ -1,0 +1,78 @@
+
+> corejs-conditions-n-loops@1.0.0 test
+> npm run lint && mocha
+
+
+> corejs-conditions-n-loops@1.0.0 lint
+> node node_modules/eslint/bin/eslint.js ./src
+
+
+D:\Distrib\Программирование\RS School 2023Q4\core-js-conditions-n-loops-tasks\src\conditions-n-loops-tasks.js
+  537:3  warning  Unexpected console statement  no-console
+  538:3  warning  Unexpected console statement  no-console
+
+✖ 2 problems (0 errors, 2 warnings)
+
+
+
+  core-js-conditions-n-loops
+    √ isPositive should return a boolean value whether a number is positive
+    √ getMaxNumber should return the maximum of three numbers
+    √ canQueenCaptureKing should return true if a queen can capture a king
+    √ isIsoscelesTriangle should return boolean whether the triangle is isosceles
+    √ convertToRomanNumerals should return the number converted to Roman numerals
+    √ convertNumberToString should the original number as a string with numbers replaced by words
+    √ isPalindrome should return a boolean value whether a string is palindrome
+    √ getIndexOf should return a bool value if the string contains the desired letter
+    √ isContainNumber should bool value whether the number contains the desired digit
+    √ getBalanceIndex should returns the index of the balancer element
+    √ getSpiralMatrix should return a matrix of size * size that is filled with numbers in ascending order
+    √ rotateMatrix should return the original array rotated by an angle of 90 degrees clockwise
+    √ sortByAsc should return a sorted array
+    √ shuffleChar should return a string in which characters with an odd index are moved to the end of the string at each iteration
+*** number 12345
+*** resultNumber 12354
+*** number 123450
+*** resultNumber 123540
+    1) getNearestBigger should return the nearest larger number made up of the digits of the original number
+
+  core-js-conditions-n-loops optimal implementation
+    √ optimal implementation of convertNumberToString
+    2) speed test of sortByAsc
+    3) speed test of shuffleChar
+*** number 7041499837222434
+*** resultNumber 7041499837222443
+    √ speed test of getNearestBigger (1ms)
+
+
+  16 passing (1s)
+  3 failing
+
+  1) core-js-conditions-n-loops
+       getNearestBigger should return the nearest larger number made up of the digits of the original number:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+123540 !== 123504
+
+      + expected - actual
+
+      -123540
+      +123504
+      
+      at Context.<anonymous> (test\conditions-n-loops-tests.js:546:14)
+      at Context.test (extensions\it-optional.js:17:12)
+      at process.processImmediate (node:internal/timers:476:21)
+
+  2) core-js-conditions-n-loops optimal implementation
+       speed test of sortByAsc:
+     Error: Timeout of 35ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (D:\Distrib\Программирование\RS School 2023Q4\core-js-conditions-n-loops-tasks\test\conditions-n-loops-tests.js)
+      at process.processImmediate (node:internal/timers:476:21)
+
+  3) core-js-conditions-n-loops optimal implementation
+       speed test of shuffleChar:
+     Error: Timeout of 30ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (D:\Distrib\Программирование\RS School 2023Q4\core-js-conditions-n-loops-tasks\test\conditions-n-loops-tests.js)
+      at process.processImmediate (node:internal/timers:476:21)
+
+
+
