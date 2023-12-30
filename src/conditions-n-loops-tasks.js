@@ -410,20 +410,34 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(arr) {
-  const a = arr;
-  for (let i = 0; i < a.length; i += 1) {
-    let sorted = false;
-    for (let k = 0; k < a.length - i; k += 1) {
-      if (a[k] > a[k + 1]) {
-        [a[k], a[k + 1]] = [a[k + 1], a[k]];
-        sorted = true;
-      }
-    }
-    if (!sorted) {
-      break;
+
+const sort = (a, first, last) => {
+  const arr = a;
+  let k = first;
+  const pivot = arr[last];
+
+  for (let i = first; i <= last - 1; i += 1) {
+    if (arr[i] <= pivot) {
+      [arr[k], arr[i]] = [arr[i], arr[k]];
+      k += 1;
     }
   }
+
+  [arr[k], arr[last]] = [arr[last], arr[k]];
+  return k;
+};
+
+const qSort = (arr, first, last) => {
+  if (first < last) {
+    const pivot = sort(arr, first, last);
+    qSort(arr, first, pivot - 1);
+    qSort(arr, pivot + 1, last);
+  }
+};
+
+function sortByAsc(arr) {
+  const a = arr;
+  qSort(a, 0, a.length - 1);
   return a;
 }
 
@@ -444,19 +458,26 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
+
 function shuffleChar(str, iterations) {
-  let s = str;
+  let shuffledStr = str;
 
   for (let iteration = 0; iteration < iterations; iteration += 1) {
     let a = '';
-    const b = s.replace(/(.)(.)?/g, (_, c1, c2) => {
-      a += c1;
-      const x = c2 || '';
-      return x;
-    });
-    s = a + b;
+    let b = '';
+    for (let i = 0; i < shuffledStr.length; i += 2) {
+      a += shuffledStr[i];
+      b += shuffledStr[i + 1] || '';
+    }
+    shuffledStr = a + b;
+
+    if (shuffledStr === str) {
+      const k = iteration;
+      while (iterations > iteration + k) iteration += k + 1;
+    }
   }
-  return s;
+
+  return shuffledStr;
 }
 
 /**
